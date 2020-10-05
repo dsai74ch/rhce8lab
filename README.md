@@ -1,10 +1,19 @@
 # rhce8lab
 A RHCE8 study 
 
+# About the environment
+
+- 4 nodes for managed systems : 
+  + servera and serverb with an extra interface
+  + serverc and serverb with an extra 2GBs disk
+
+- 1 control node for running Ansible playbooks. 
+
 # Prepare the environment 
 
 - [Install the Latest Version of Vagrant](https://www.vagrantup.com/downloads.html)
 - [Install the Latest Version of Virtualbox and Virtualbox Extension Pack](https://www.virtualbox.org/wiki/Downloads) 
+
 
 # Deploy 
 
@@ -20,3 +29,7 @@ RedHat Developer Portal <https://developers.redhat.com/>
 3) Create the environment with Vagrant 
 
 vagrant up 
+
+# Try it in practice sample exam
+
+<https://www.lisenet.com/2019/ansible-sample-exam-for-ex407/>
