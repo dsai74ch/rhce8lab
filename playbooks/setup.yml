@@ -31,7 +31,11 @@
     file: 
       path: /etc/yum.repos.d/*
       state: absent
+<<<<<<< HEAD
   - name: Creating Local Repo File
+=======
+  - name: Creating Temporary Repo File
+>>>>>>> 25545748f9c73c08b73b4c65088e9adf4ee57d10
     file:
       path: /etc/yum.repos.d/local.repo
       state: touch
@@ -41,7 +45,11 @@
       dest: /etc/yum.repos.d/local.repo
       content: "[base]\nname=Base\nbaseurl=http://repo/BaseOS\ngpgcheck=0\nenabled=1\n\n[apps]\nname=Apps\nbaseurl=http://repo/AppStream\ngpgcheck=0\nenabled=1"
       force: yes
+<<<<<<< HEAD
   - name: Disabling IPV6
+=======
+  - name: Enabling IPV6
+>>>>>>> 25545748f9c73c08b73b4c65088e9adf4ee57d10
     sysctl:
       name: "{{ item }}"
       value: '0'
@@ -59,3 +67,20 @@
       path: /etc/resolv.conf
       line: 'nameserver 8.8.8.8'
       state: present
+<<<<<<< HEAD
+=======
+  - name: Welcome to the RHCE 8 Study/Test Environment!
+    debug:
+      msg:
+        - 'Next Steps: Accessing The Systems:'
+        - '- Control - 172.25.250.9'
+        - '- Server a - 172.25.250.10'
+        - '- Server b - 172.25.250.11'
+        - '- Server c - 172.25.250.12'
+        - '- Server d - 172.25.250.13'
+        - '- Username/Password - user/password'
+        - '--------------------------------------------------'
+        - '- For root - use `sudo` or `sudo su`'
+        - '- Access example - ssh user@172.25.250.9'
+        - '- Happy Studying!'
+>>>>>>> 25545748f9c73c08b73b4c65088e9adf4ee57d10

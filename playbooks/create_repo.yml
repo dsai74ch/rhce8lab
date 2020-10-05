@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - hosts: repo
   become: true
   tasks:
@@ -6,6 +7,14 @@
         paths: /vagrant
         patterns: "*.iso"
       register: isofile
+=======
+- hosts: localhost
+  become: true
+  vars:
+    - iso_path: /home/vagrant/
+    - iso_image: rhel-8.0-x86_64-dvd.iso
+  tasks:
+>>>>>>> 25545748f9c73c08b73b4c65088e9adf4ee57d10
     - name: Install Apache
       yum: 
         name: httpd
@@ -27,11 +36,16 @@
     - name: Mount ISO
       mount:
         path: /var/www/html
+<<<<<<< HEAD
         src: "{{ isofile.files[0].path  }}"
+=======
+        src: "{{ iso_path }}{{ iso_image }}"
+>>>>>>> 25545748f9c73c08b73b4c65088e9adf4ee57d10
         fstype: iso9660
         opts: ro,noauto
         state: mounted
       when: repopath.stat.islnk is not defined
+<<<<<<< HEAD
     - name: Welcome to the RHCE 8 Study/Test Environment!
       debug:
         msg:
@@ -49,3 +63,5 @@
           - '--------------------------------------------------'
           - '- Access example - ssh user@172.25.250.9'
           - '--------------------------------------------------'
+=======
+>>>>>>> 25545748f9c73c08b73b4c65088e9adf4ee57d10
