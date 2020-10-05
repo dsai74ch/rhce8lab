@@ -1,0 +1,28 @@
+- hosts: localhost
+  become: true
+  vars:
+    - iso_path: /home/vagrant/
+    - iso_image: rhel-8.0-x86_64-dvd.iso
+    - domain: lab.example.com
+  tasks:
+    - name: Install Apache
+      yum: 
+        name: httpd
+        state: present
+    - name: Start Apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+    - name: Stop firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no 
+    - name: Mount ISO
+      mount:
+        path: /var/www/html
+        src: "{{ iso_path }}{{ iso_image }}"
+        fstype: iso9660
+        opts: ro,noauto
+        state: mounted

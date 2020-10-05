@@ -1,0 +1,51 @@
+- hosts: repo
+  become: true
+  tasks:
+    - name: List iso file
+      find:
+        paths: /vagrant
+        patterns: "*.iso"
+      register: isofile
+    - name: Install Apache
+      yum: 
+        name: httpd
+        state: present
+    - name: Start Apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+    - name: Stop firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no 
+    - name: Get stats of repo path
+      stat:
+        path: /var/www/html/AppStream
+      register: repopath
+    - name: Mount ISO
+      mount:
+        path: /var/www/html
+        src: "{{ isofile.files[0].path  }}"
+        fstype: iso9660
+        opts: ro,noauto
+        state: mounted
+      when: repopath.stat.islnk is not defined
+    - name: Welcome to the RHCE 8 Study/Test Environment!
+      debug:
+        msg:
+          - '--------------------------------------------------'
+          - 'Vms :'
+          - '- Control - 172.25.250.9'
+          - '- Server a - 172.25.250.10'
+          - '- Server b - 172.25.250.11'
+          - '- Server c - 172.25.250.12'
+          - '- Server d - 172.25.250.13'
+          - '--------------------------------------------------'
+          - '- Username: username | Password: password'
+          - '--------------------------------------------------'
+          - '- For root: use `sudo` or `sudo su`'
+          - '--------------------------------------------------'
+          - '- Access example - ssh user@172.25.250.9'
+          - '--------------------------------------------------'
