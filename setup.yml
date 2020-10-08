@@ -1,0 +1,61 @@
+---
+- name: Hosts setup 
+  hosts: all
+  become: true
+  vars:
+    - fqdn: lab.example.com
+    - hostname: "{{ ansible_hostname }}.{{ fqdn }}"
+  tasks:
+  - name: Setting Hostname
+    hostname: 
+      name: "{{ hostname }}"
+  - name: Creating User Account
+    user:
+      name: user
+      shell: /bin/bash
+      groups: wheel
+      append: yes
+  - name: Changing User Password
+    shell: echo password | sudo passwd user --stdin
+  - name: Changing Root Password
+    shell: echo password | sudo passwd root --stdin
+  - name: Adjusting services
+    selinux:
+      state: permissive
+      policy: targeted
+  - name: Building Host File
+    template: 
+      src: hosts.j2 
+      dest: /etc/hosts
+  - name: Erasing Repos
+    file: 
+      path: /etc/yum.repos.d/*
+      state: absent
+  - name: Creating Local Repo File
+    file:
+      path: /etc/yum.repos.d/local.repo
+      state: touch
+      mode: 0755
+  - name: Building Repo File
+    copy:
+      dest: /etc/yum.repos.d/local.repo
+      content: "[base]\nname=Base\nbaseurl=http://repo/BaseOS\ngpgcheck=0\nenabled=1\n\n[apps]\nname=Apps\nbaseurl=http://repo/AppStream\ngpgcheck=0\nenabled=1"
+      force: yes
+  - name: Disabling IPV6
+    sysctl:
+      name: "{{ item }}"
+      value: '0'
+      sysctl_set: yes
+    with_items:
+      - net.ipv6.conf.lo.disable_ipv6
+      - net.ipv6.conf.all.disable_ipv6
+  - name: Environment Packages Installed.
+    yum: name=man-pages state=present 
+    register: yum_sleeper
+  - name: Starting services
+    service: name=firewalld enabled=true state=started
+  - name: Fixing Resolv File
+    lineinfile:
+      path: /etc/resolv.conf
+      line: 'nameserver 8.8.8.8'
+      state: present

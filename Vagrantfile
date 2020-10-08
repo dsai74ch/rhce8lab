@@ -8,7 +8,7 @@ nodes = [
 { :hostname => 'serverc', :ip => "#{network}.12" , :ram => 1024, :sdb =>  'yes' },
 { :hostname => 'serverd', :ip => "#{network}.13" , :ram => 1024, :sdb =>  'yes' },
 { :hostname => 'control', :ip => "#{network}.9" , :ram => 2048 },
-{ :hostname => 'repo', :ip => "#{network}.8" , :ram => 1024 }]
+{ :hostname => 'repo',   :ip => "#{network}.8" , :ram => 1024 }]
 
 Vagrant.configure("2") do |config|
     nodes.each do |node|
@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
               		memory = node[:ram] ? node[:ram] : 512;
 
         if node[:hostname] == "repo"
-		    nodeconfig.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [".git/", "*.vdi"]
+                    nodeconfig.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [".git/", "*.vdi"]
                     nodeconfig.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;", run: "once"
                     nodeconfig.vm.provision :shell, :inline => "bash -x /vagrant/postrepo.sh"
   		    nodeconfig.vm.provision :ansible_local do |ansible|
@@ -37,9 +37,8 @@ Vagrant.configure("2") do |config|
 		    ansible.inventory_path = "/vagrant/playbooks/inventory"
 		    ansible.config_file = "/vagrant/playbooks/ansible.cfg"
 		    ansible.limit = "all"
-		 end
        end
-
+       end
 	if node[:sdb] == "yes"
               vb.customize ["storagectl", :id, "--add", "sata", "--name", "SATA" , "--portcount", 4, "--hostiocache", "on"]
               vb.customize [ "createhd", "--filename", "disk_sata-#{node[:hostname]}", "--size", "2048" ]
