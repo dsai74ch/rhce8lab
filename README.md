@@ -14,7 +14,7 @@ A RHCE8 study
 - [Install the Latest Version of Vagrant](https://www.vagrantup.com/downloads.html)
 - [Install the Latest Version of Virtualbox and Virtualbox Extension Pack](https://www.virtualbox.org/wiki/Downloads) 
 
-**If you dont prefer Vagrant environment, check the inventory and run the site.yml for adapt your necessity** 
+**If you dont prefer the Vagrant + VirtualBox environment, check the inventory and run the site.yml on the playbook directory for adapt your necessity** 
 
 
 # Deploy 
