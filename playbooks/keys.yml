@@ -10,6 +10,7 @@
     loop:
       - root
       - student
+      - devops
 
 - hosts: all
   become: true

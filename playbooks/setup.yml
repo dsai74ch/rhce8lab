@@ -11,10 +11,18 @@
       name: "{{ hostname }}"
   - name: Creating User Account
     user:
-      name: student
+      name: "{{ item }}"
       shell: /bin/bash
-      groups: wheel
-      append: yes
+    loop:
+      - student
+      - devops
+  - name: Add sudoer
+    copy:
+      content: "{{ item }} ALL=(ALL)	NOPASSWD: ALL"
+      dest: /etc/sudoers.d/devops
+    loop:
+      - student
+      - devops
   - name: Changing User Password
     shell: echo student | sudo passwd student --stdin
   - name: Changing Root Password
