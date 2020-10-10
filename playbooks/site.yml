@@ -1,0 +1,5 @@
+- hosts: repository 
+  become: true
+
+- import_playbook: setup.yml
+- import_playbook: create_repo.yml
