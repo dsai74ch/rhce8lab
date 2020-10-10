@@ -1,0 +1,30 @@
+- hosts: repository
+  become: true
+  tasks:
+  - name: Create a 2048-bit SSH key for users
+    user:
+      name: "{{ item }}"
+      generate_ssh_key: yes
+      ssh_key_bits: 2048
+      ssh_key_file: .ssh/id_rsa
+    loop:
+      - root
+      - student
+
+- hosts: all
+  become: true
+  tasks:  
+  - name: Ensure key is in root's ~/.ssh/authorized_hosts
+    authorized_key:
+      user: root
+      state: present
+      key: '{{ item }}'
+    with_file:
+      - ~/.ssh/id_rsa.pub
+  - name: Ensure key is in students's ~/.ssh/authorized_hosts
+    authorized_key:
+      user: student
+      state: present
+      key: '{{ item }}'
+    with_file:
+      - ~/.ssh/id_rsa.pub
