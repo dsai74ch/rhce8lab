@@ -1,9 +1,0 @@
-[repository]
-repo.lab.example.com ansible_host=172.25.250.8 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_python_interpreter=/usr/bin/python3
-[control]
-control.lab.example.com ansible_host=172.25.250.9 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_python_interpreter=/usr/bin/python3
-[nodes]
-servera.lab.example.com ansible_host=172.25.250.10 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_python_interpreter=/usr/bin/python3
-serverb.lab.example.com ansible_host=172.25.250.11 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_python_interpreter=/usr/bin/python3
-serverc.lab.example.com ansible_host=172.25.250.12 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_python_interpreter=/usr/bin/python3
-serverd.lab.example.com ansible_host=172.25.250.13 ansible_user=vagrant ansible_ssh_pass=vagrant ansible_python_interpreter=/usr/bin/python3
