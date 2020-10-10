@@ -11,12 +11,12 @@
       name: "{{ hostname }}"
   - name: Creating User Account
     user:
-      name: user
+      name: student
       shell: /bin/bash
       groups: wheel
       append: yes
   - name: Changing User Password
-    shell: echo password | sudo passwd user --stdin
+    shell: echo student | sudo passwd student --stdin
   - name: Changing Root Password
     shell: echo password | sudo passwd root --stdin
   - name: Adjusting services

@@ -19,7 +19,6 @@
       file:
         state: directory
         path: /var/www/html/repo
-        mode: 0755
     - name: Stop firewalld
       service:
         name: firewalld
@@ -27,7 +26,7 @@
         enabled: no 
     - name: Get stats of repo path
       stat:
-        path: /var/www/html/AppStream
+        path: /var/www/html/repo/AppStream
       register: repopath
     - name: Mount ISO
       mount:
@@ -48,9 +47,9 @@
           - '- Server c - 172.25.250.12'
           - '- Server d - 172.25.250.13'
           - '--------------------------------------------------'
-          - '- Username: username | Password: password'
+          - '- Username: student | Password: student'
           - '--------------------------------------------------'
           - '- For root: use `sudo` or `sudo su`'
           - '--------------------------------------------------'
-          - '- Access example - ssh user@172.25.250.9'
+          - '- Access example - ssh student@172.25.250.9'
           - '--------------------------------------------------'
