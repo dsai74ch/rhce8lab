@@ -5,7 +5,7 @@ A RHCE8 study
 
 - 4 nodes for managed systems : 
   + servera and serverb has an extra interface
-  + serverc and serverb  has a 2GB secondary /dev/sdb disk attached.
+  + All servers have a 2GB secondary /dev/sdb disk attached.
 
 - 1 control node for running Ansible playbooks. 
 
